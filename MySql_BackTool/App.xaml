@@ -1,0 +1,9 @@
+﻿<Application x:Class="MySql_BackTool.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MySql_BackTool"
+             StartupUri="Back_Select.xaml">
+    <Application.Resources>
+
+    </Application.Resources>
+</Application>
