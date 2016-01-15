@@ -41,12 +41,19 @@ namespace MySql_BackTool
                 MessageBox.Show("还没有选择源文件");
                 return;
             }
-
             try
             {
-                //确定还原数据库
-                DBUser.SetUser();
-                BackDBTool _dbTool = new BackDBTool(DBName);
+                //确定还原本地数据库
+                HostInfo hostInfo = new HostInfo();
+                hostInfo.Host = "192.168.1.126";
+                hostInfo.Port = 3306;
+                hostInfo.User = "root";
+                hostInfo.Pwd = "123";
+                hostInfo.InfoName = "本地蔚蓝留学网数据库";
+                hostInfo.Character = "local_wlliuxue";
+                hostInfo.InfoSummary = "介绍";
+
+                BackDBTool _dbTool = new BackDBTool(hostInfo, DBName);
                 if (_dbTool.Exec_Restore_File(fileName))
                 {
                     MessageBox.Show("备份成功");

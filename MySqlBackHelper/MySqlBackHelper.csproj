@@ -34,8 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>H:\蔚蓝留学网源码\packages\Common\Common.dll</HintPath>
     </Reference>
-    <Reference Include="LogHelper">
-      <HintPath>H:\蔚蓝留学网源码\WLLiuXue\bin\LogHelper.dll</HintPath>
+    <Reference Include="LogHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\常用帮助类\DLL\LogHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -51,14 +52,15 @@
     <Compile Include="BackInfo.cs" />
     <Compile Include="BackBase.cs" />
     <Compile Include="BackDBTool.cs" />
-    <Compile Include="BackHostInfo.cs" />
+    <Compile Include="HostInfoOperate.cs" />
+    <Compile Include="Log\BackLog.cs" />
+    <Compile Include="HostInfo.cs" />
     <Compile Include="BackInfoOperate.cs" />
-    <Compile Include="BackLog.cs" />
+    <Compile Include="Log\ServiceLog.cs" />
     <Compile Include="BackOperate_Auto.cs" />
     <Compile Include="BackOperate.cs" />
     <Compile Include="BackTableTool.cs" />
     <Compile Include="CmdHelper.cs" />
-    <Compile Include="DBUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,10 +11,11 @@ namespace MySqlBackHelper
     /// </summary>
     public class BackBase
     {
+
         /// <summary>
-        /// 当前用户
+        /// 当前备份的主机信息，用户信息
         /// </summary>
-        public DBUser _user = null;
+        public HostInfo HostInfo = null;
         /// <summary>
         /// 数据库名称
         /// </summary>
@@ -40,15 +41,14 @@ namespace MySqlBackHelper
                 _TargetPath = value;
             }
         }
-
         /// <summary>
-        /// 日志记录
+        /// 备份操作，日志记录
         /// </summary>
         private LogHelper.LogHelper _log = null;
-        public BackBase()
+        public BackBase(HostInfo HostInfo)
         {
-            _log = new LogHelper.LogHelper("MySqlBack_Log");
-            _user = DBUser.GetCurrentUser();
+            _log = BackLog.GetLog();
+            this.HostInfo = HostInfo;
         }
 
 

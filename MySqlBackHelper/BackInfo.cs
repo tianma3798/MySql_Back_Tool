@@ -11,7 +11,7 @@ using System.IO;
 namespace MySqlBackHelper
 {
     /// <summary>
-    /// 备份信息
+    /// 备份数据库，备份时间等信息
     /// </summary>
     public class BackInfo
     {
@@ -37,7 +37,9 @@ namespace MySqlBackHelper
         /// </summary>
         public List<DateTime> TimeList = new List<DateTime>();
 
-
+        /// <summary>
+        /// 序列化需要无参构造函数
+        /// </summary>
         public BackInfo()
         {
         }
@@ -78,6 +80,27 @@ namespace MySqlBackHelper
                 return TimeList.Any(q => q.Hour == now.Hour && q.Minute == now.Minute);
             }
             return false;
+        }
+
+        /// <summary>
+        /// 执行当前备份
+        /// </summary>
+        /// <param name="hostInfo">指定主机信息</param>
+        public void Exec_Back(HostInfo hostInfo)
+        {
+            if (IsCanBack())
+            {
+                //先获取配置，再备份
+                BackDBTool _dbTool = new BackDBTool(hostInfo,
+                    this.DBName, this.TargetName, this.TargetPath);
+                //开始备份
+                if (_dbTool.Exec_Back() == false)
+                {
+                    throw new Exception("备份文件失败,对应数据库名称："
+                        + _dbTool.DBName + ",备份语句："
+                        + _dbTool.GetSql_Back());
+                }
+            }
         }
     }
 

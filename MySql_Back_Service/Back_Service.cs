@@ -17,8 +17,7 @@ namespace MySql_Back_Service
         /// <summary>
         /// 服务启动记录
         /// </summary>
-        LogHelper.LogHelper _log = new LogHelper.LogHelper("Back_Service_Log");
-
+        LogHelper.LogHelper _log = ServiceLog.GetLog();
         BackOperate_Auto _operate = null;
         public Back_Service()
         {
@@ -29,8 +28,7 @@ namespace MySql_Back_Service
             }
             catch (Exception ex)
             {
-
-                _log.WriteLine("初始化，操作对象失败："+ex.Message);
+                _log.WriteLine("初始化，操作对象失败：" + ex.Message);
             }
         }
         /// <summary>

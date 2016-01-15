@@ -16,7 +16,7 @@ namespace MySqlBackHelper
         /// <param name="DBName">数据库名称</param>
         /// <param name="TargetName">备份文件名称</param>
         /// <param name="TargetPath">备份目录</param>
-        public BackDBTool(string DBName, string TargetName, string TargetPath)
+        public BackDBTool(HostInfo HostInfo, string DBName, string TargetName, string TargetPath) : base(HostInfo)
         {
             this.DBName = DBName;
             this.TargetName = TargetName;
@@ -27,12 +27,12 @@ namespace MySqlBackHelper
         /// </summary>
         /// <param name="DBName">数据库名称</param>
         /// <param name="TargetPath">备份文件名称</param>
-        public BackDBTool(string DBName, string TargetPath) : this(DBName, DBName, TargetPath)
+        public BackDBTool(HostInfo HostInfo, string DBName, string TargetPath) : this(HostInfo, DBName, DBName, TargetPath)
         { }
         /// <summary>
         /// 不指定路径默认人到d：盘
         /// </summary>
-        public BackDBTool(string DBName) : this(DBName, DBName, "d:") { }
+        public BackDBTool(HostInfo HostInfo, string DBName) : this(HostInfo, DBName, DBName, "d:") { }
         #endregion
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace MySqlBackHelper
             }
             targetname = this.TargetPath + targetname;
             sql = string.Format(sql,
-                _user.Host,
-                _user.UserName,
-                _user.Password,
+                HostInfo.Host,
+                HostInfo.User,
+                HostInfo.Pwd,
                 DBName, targetname);
             return sql;
         }
@@ -77,6 +77,10 @@ namespace MySqlBackHelper
                     Log_Back(str);
                     return true;
                 }
+                else
+                {
+                    Log("执行备份命令失败，命令行返回：" + result);
+                }
             }
             catch (Exception ex)
             {
@@ -85,7 +89,6 @@ namespace MySqlBackHelper
             }
             return false;
         }
-
 
         #region 还原
         /// <summary>
@@ -101,20 +104,6 @@ namespace MySqlBackHelper
             }
             targetname = this.TargetPath + targetname;
             return GetSql_Restore_File(targetname);
-
-            //string sql = "mysql -h {0} -u {1} -p{2} {3} < {4}";
-            //string targetname = this.TargetName;
-            //if (string.IsNullOrEmpty(newFileName) == false)
-            //{
-            //    targetname = newFileName;
-            //}
-            //targetname = this.TargetPath + targetname;
-            //sql = string.Format(sql,
-            //    _user.Host,
-            //    _user.UserName,
-            //    _user.Password,
-            //    DBName, targetname);
-            //return sql;
         }
         /// <summary>
         /// 获取 还原语句
@@ -125,9 +114,9 @@ namespace MySqlBackHelper
         {
             string sql = "mysql -h {0} -u {1} -p{2} {3} < {4}";
             sql = string.Format(sql,
-                _user.Host,
-                _user.UserName,
-                _user.Password,
+                HostInfo.Host,
+                HostInfo.User,
+                HostInfo.Pwd,
                 DBName, fullName);
             return sql;
         }
